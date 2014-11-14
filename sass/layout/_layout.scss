@@ -1,0 +1,38 @@
+body {
+    background: #efefef;
+}
+body>header {
+    width: 100%;
+    height: 50px;
+    background: $basecol;
+    // position: fixed;
+    left: 0px;
+    top: 0px;
+}
+body>article {
+    width: 80%;
+    margin: auto;
+}
+body>article>nav {
+    background:white;
+    margin: 20px auto;
+    width: 100%;
+    border-radius: 5px;
+} 
+
+body>article>section {
+    background: white;
+    width: 100%;
+    margin: 20px auto;
+    border-radius: 5px;
+    font-size: 0px;
+
+
+} 
+
+body>footer {
+    background: $footercol;
+    margin-top: 20px;
+    width: 100%;
+    height: 300px;
+}
