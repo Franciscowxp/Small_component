@@ -8,6 +8,11 @@ $footercol:#8A9697;
 $flatcolor:#1CCAA8 #19B698 #19B698 #2CC36B #2CC36B #2D8BC9 #2D8BC9 #9B50BA #9B50BA #33485C #F2C820 #F4A62A #E98A37 #E65C00 #E65C00 #D14233  #9FAEAF #869394;
 $flatkey:random(length($flatcolor));
 $flatkeyhover:random(length($flatcolor));
+$breakpoints:(
+    'small':(min-width: 767px),
+    'medium':(min-width: 992px),
+    'large':(min-width: 1200px)
+);
 * {
     margin: 0px;
     padding: 0px;
