@@ -49,6 +49,7 @@
                 $(this).mouseover(function(event) {
                     if ($(event.target).hasClass('icon')) {
                         var index = $(event.target).index();
+                        icons.slice(0, index+1).addClass('hover');
                     }
                 });
                 $(this).mouseout(function(event) {
