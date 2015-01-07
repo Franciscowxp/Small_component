@@ -11,13 +11,13 @@ module.exports = function(grunt) {
               // '!sass/{6*,9*}.scss'
             ],
             tasks: ['sass']
-          },
+          }
           // js: {
           //   files: [
           //     'js/*.js'
           //   ],
           //   tasks: ['jshint']
-          // },
+          // }
           // coffee:{
           //   files:[
           //     'coffee/*.coffee'
@@ -109,12 +109,12 @@ module.exports = function(grunt) {
   });
   // 加载Grunt插件
   grunt.loadNpmTasks('grunt-browser-sync');
-  grunt.loadNpmTasks('grunt-contrib-compass');
-  grunt.loadNpmTasks('grunt-autoprefixer');
+  // grunt.loadNpmTasks('grunt-contrib-compass');
+  // grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-sass');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-coffee');
+  // grunt.loadNpmTasks('grunt-contrib-jshint');
+  // grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.registerTask('default', ['browserSync','watch']);
   // 注册grunt默认任务
    // grunt.registerTask('default', ['watch']);
