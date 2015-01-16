@@ -9,8 +9,8 @@ Some general web design component.
 * Support big file.
 * Resume and Pause. it can support resume broken transfer.Don't need other library. 
 * ProgressBar. 
+* Use http not websocket
 * Preview. preview some file like images and plain text.
-* Use http not websocket.
     
 * ####options
     
@@ -40,9 +40,10 @@ Some general web design component.
 #### use
 
     * css 
-    ```html
-    <link rel="stylesheet" href="./static/css/fileupload.css"/>
-    ```
+    
+        ```html
+        <link rel="stylesheet" href="./static/css/fileupload.css"/>
+        ```
     * javascript
         
         ```html
@@ -58,7 +59,7 @@ Some general web design component.
     * run it 
         
         example:
-    ```html
+        ```html
         new FileUpload({
         fileInput:null,
         selectButton:null,
@@ -68,4 +69,4 @@ Some general web design component.
         dragActiveClass:'active',
         url:'/upload'
         })
-    ```
+        ```
