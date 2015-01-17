@@ -70,3 +70,9 @@ Some general web design component.
         url:'/upload'
         })
         ```
+    
+    
+    
+* #### Back-end
+
+        This component uses flask as the back-end,you can see more details in FileUpload.py file,also you can rewrite the back-end in other language.
