@@ -14,27 +14,27 @@ Some general web design component.
     
 * ####options
     
-    * fileInput //html file dom 
-    * dragDrop  //drop field dom
-    * dragActiveClass  //the class name add to drop field after drop action
-    * previewBox  //image preview field dom
-    * selectButton  //the button that trigger the fileinput to select file
-    * upButton  //upload button
-    * limitSize = 2000; //global limited size (M)
-    * sliceSize = 2; //cutting http file size (M). When uploading file is larger than this value, we use the breakpoint upload.But it is useful only when resumeUpload is enabled.
-    * resumeUpload = true; //Whether to enable the breakpoint upload
-    * url = ""; //upload url
-    * fileType = ['exe', 'rar', 'png', 'jpg', 'gif', 'txt']; // upload file type
-    * customFilter: function(file) {}, //custom filter function.It must return a file object
-    * onSelect: function() {}, //after selecting file,it will be invoked 
-    * onDelete: function() {}, //after removing file,it will be invoked 
-    * onDragEnter: function() {}, //when droping file into drop field,it will be invoked
-    * onDragOver: function() {}, //when droping file over drop field,it will be invoked
-    * onDragLeave: function() {}, //when droping file leave drop field,it will be invoked
-    * onProgress: function(prosize) {}, //when uploading,it will be invoked.the parameter  is Percentage progress
-    * onSuccess: function() {}, //when single file uploads successfully,it will be invoked 
-    * onFailure: function() {}, //when single file fails to upload fail,it will be invoked  
-    * onComplete: function() {}, //when single file upload complete
+    * `fileInput=` //html file dom 
+    * `dragDrop=`  //drop field dom
+    * `dragActiveClass=`  //the class name add to drop field after drop action
+    * `previewBox=`  //image preview field dom
+    * `selectButton=`  //the button that trigger the fileinput to select file
+    * `upButton=`  //upload button
+    * `limitSize = 2000` //global limited size (M)
+    * `sliceSize = 2` //cutting http file size (M). When uploading file is larger than this value, we use the breakpoint upload.But it is useful only when resumeUpload is enabled.
+    * `resumeUpload = true` //Whether to enable the breakpoint upload
+    * `url = ""` //upload url
+    * `fileType = ['exe', 'rar', 'png', 'jpg', 'gif', 'txt']` // upload file type
+    * `customFilter: function(file) {}` //custom filter function.It must return a file object
+    * `onSelect: function() {}` //after selecting file,it will be invoked 
+    * `onDelete: function() {}` //after removing file,it will be invoked 
+    * `onDragEnter: function() {}` //when droping file into drop field,it will be invoked
+    * `onDragOver: function() {}` //when droping file over drop field,it will be invoked
+    * `onDragLeave: function() {}` //when droping file leave drop field,it will be invoked
+    * `onProgress: function(prosize) {}` //when uploading,it will be invoked.the parameter  is Percentage progress
+    * `onSuccess: function() {}` //when single file uploads successfully,it will be invoked 
+    * `onFailure: function() {}` //when single file fails to upload fail,it will be invoked  
+    * `onComplete: function() {}` //when single file upload complete
  
 * 
 #### use
@@ -49,13 +49,17 @@ Some general web design component.
         ```html
         <script type='text/javascript' src="./static/js/FileUpload.js"></script>
         ```
-    * html template(in FileUpload.html)
+    * html template(in *FileUpload.html*)
         
         ```html
         <article class="fileUpload">
                 .........
         </article>
         ```
+    * webfonts
+    
+        The webfonts are in *fonts* folder,you should add it to your project.
+        so the *fileupload.css* can load the fonts for the component
     * run it 
         
         example:
@@ -75,4 +79,5 @@ Some general web design component.
     
 * #### Back-end
 
-        This component uses flask as the back-end,you can see more details in FileUpload.py file,also you can rewrite the back-end in other language.
+    This component uses flask as the back-end,you can see more details in *FileUpload.py* file.
+    Also you can rewrite the back-end in other language.
