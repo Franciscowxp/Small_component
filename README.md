@@ -75,4 +75,4 @@ Some general web design component.
     
 * #### Back-end
 
-        This component use flask as the back-end,you cant see more details in FileUpload.py file,also you cant rewrite the back-end in other language
+        This component uses flask as the back-end,you can see more details in FileUpload.py file,also you can rewrite the back-end in other language.
