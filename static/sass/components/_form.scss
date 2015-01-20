@@ -1,5 +1,6 @@
 %inputfocus {
-    @include border;
+    border: 1px solid $bordercol;
+    border-radius: 5px;
     padding: 3px 10px;
     color: $textcol;
     @extend %transition;
@@ -71,7 +72,8 @@
         width: 100%;
         height: 100%;
         display: block;
-        @include border;
+        border: 1px solid $bordercol;
+        border-radius: 5px;
         background: white;
         cursor: pointer;
     }
