@@ -1569,7 +1569,7 @@ i.icon.weixin:before { content: "\f1d7"; }
 
 .process2 span { background: -webkit-linear-gradient(top left, #3399ff 25%, #99ccff 25%, #99ccff 50%, #3399ff 50%, #3399ff 75%, #99ccff 75%, #99ccff 100%); background: -moz-linear-gradient(top left, #3399ff 25%, #99ccff 25%, #99ccff 50%, #3399ff 50%, #3399ff 75%, #99ccff 75%, #99ccff 100%); background: -ms-linear-gradient(top left, #3399ff 25%, #99ccff 25%, #99ccff 50%, #3399ff 50%, #3399ff 75%, #99ccff 75%, #99ccff 100%); background: -o-linear-gradient(top left, #3399ff 25%, #99ccff 25%, #99ccff 50%, #3399ff 50%, #3399ff 75%, #99ccff 75%, #99ccff 100%); background: linear-gradient(top left, #3399ff 25%, #99ccff 25%, #99ccff 50%, #3399ff 50%, #3399ff 75%, #99ccff 75%, #99ccff 100%); -webkit-animation: process2 3s linear 2s infinite normal; -moz-animation: process2 3s linear 2s infinite normal; -ms-animation: process2 3s linear 2s infinite normal; -o-animation: process2 3s linear 2s infinite normal; animation: process2 3s linear 2s infinite normal; background-size: 60px 60px; }
 
-.process1 span[style*='width: 3'] { background: #66b2ff; }
+.process1 span[style*='width: 3'], .process1 span[style*='width: 4'] { background: #66b2ff; }
 .process1 span[style*='width: 5'], .process1 span[style*='width: 6'], .process1 span[style*='width: 7'] { background: #4da6ff; }
 .process1 span[style*='width: 8'], .process1 span[style*='width: 9'] { background: #66da81; }
 .process1 span[style*='width: 100'] { background: #5bbd72; }

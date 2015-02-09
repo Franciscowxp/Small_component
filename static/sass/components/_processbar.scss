@@ -53,7 +53,7 @@
 }
 
 .process1 {
-    span[style*='width: 3'] {
+    span[style*='width: 3'],span[style*='width: 4'] {
         background: lighten(#3399ff,10%);
     }
     span[style*='width: 5'],span[style*='width: 6'],span[style*='width: 7'] {
