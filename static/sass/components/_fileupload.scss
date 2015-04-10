@@ -1,3 +1,11 @@
+@keyframes show {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
 .fileUpload {
     padding: 20px;
     header {
@@ -17,7 +25,7 @@
             p {
                 color: #BABABA;
                 font-size: pxToRem(18px);
-                @include textshadow( 2px 2px 2px #dcdcdc);
+                @include textshadow(2px 2px 2px #dcdcdc);
                 text-align: center;
                 &:first-of-type {
                     margin-top: 100px;
@@ -35,38 +43,39 @@
             button {
                 font-size: pxToRem(16px);
                 color: #878787;
-                @include textshadow( 2px 2px 2px #dcdcdc);
+                @include textshadow(2px 2px 2px #dcdcdc);
                 padding: 5px;
                 border: 1px solid #dcdcdc;
                 border-radius: 5px;
                 cursor: pointer;
                 display: inline-block;
-                margin:0px 5px;
+                margin: 0px 5px;
             }
         }
         &.active {
-            border-color: darken(#dcdcdc,10%);
+            border-color: darken(#dcdcdc, 10%);
         }
     }
     .preview {
         border: none;
         font-size: 0px;
-        &>div {
+        & > div {
             @include inlineblock;
             margin: 5px;
             width: 200px;
             text-align: center;
             overflow: hidden;
             position: relative;
-            height: 200px;
-            i.file{
+            height: 220px;
+            animation: show 0.5s ease-in-out both;
+            .file {
                 font-size: pxToRem(70px);
                 width: 100%;
                 height: 180px;
                 text-align: center;
                 line-height: 180px;
             }
-            &>span {
+            & > span {
                 text-align: center;
                 display: inline-block;
                 vertical-align: middle;
@@ -74,23 +83,8 @@
                 color: $textcol;
                 width: 100%;
                 @include boxsizing(border-box);
-                &:nth-child(3) {
-                    height: 182px;
-                    overflow: hidden;
-                }
-                &:last-of-type {
-                    border-top: 1px solid $teal;
-                    font-size: pxToRem(12px);
-                }
-                &:only-of-type {
-                    position: absolute;
-                    background: white;
-                    top: 182px;
-                    left: 0px;
-                    height: auto;
-                }
             }
-            &>p {
+            & > p {
                 position: absolute;
                 top: 0px;
                 margin: 0px;
@@ -102,7 +96,7 @@
                 font-size: pxToRem(18px);
                 margin: 0px;
             }
-            i.remove {
+            .remove {
                 color: $blue;
                 cursor: pointer;
                 @include transition;
@@ -111,19 +105,19 @@
                     @include transition;
                 }
             }
-            i.warning {
-                color:$red;
+            .warning {
+                color: $red;
             }
-            i.checkmark {
+            .checkmark {
                 color: #5bbd72;
             }
             &:hover {
-                i.remove:before,i.resume:before {
+                i.remove:before, i.resume:before {
                     opacity: 0.8;
                 }
             }
-            i.resume {
-                position:absolute;
+            .resume {
+                position: absolute;
                 left: 50%;
                 top: 50%;
                 color: $blue;
@@ -132,6 +126,7 @@
                 margin: pxToRem(-25px) 0 0 pxToRem(-25px);
                 font-size: pxToRem(50px);
                 cursor: pointer;
+                transform: translate(0, -50%);
                 @include transition;
                 &:before {
                     opacity: 0.3;
@@ -144,8 +139,43 @@
             display: inline-block;
             vertical-align: middle;
         }
+        p:last-of-type {
+            top: 200px;
+            width: 100%;
+            height: 18px;
+            font-size: pxToRem(12px);
+            color: $textcol;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            span {
+                flex: auto 0 0;
+            }
+        }
+        .name {
+            position: absolute;
+            background: white;
+            top: 182px;
+            left: 0px;
+            height: 18px;
+            overflow: hidden;
+            border-top: 1px solid $teal;
+                    font-size: pxToRem(12px);
+        }
+    }
+    .exist {
+        font-size: pxToRem(12px);
+        background: rgba(255,0,0,0.5);
+        color: white;
+        padding: 5px;
+        border-radius: 4px;
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        transform: rotate(30deg);
     }
 }
+
 .upload.notice {
     position: fixed;
     background: rgba(102, 180, 255, 1);
@@ -158,5 +188,5 @@
     height: 30px;
     margin-top: -30px;
     @include boxsizing(border-box);
-    margin-left: -50px;
+    transform: translate(-50px, 0);
 }

@@ -10,7 +10,7 @@ module.exports = function(grunt) {
               // '!sass/*reset*.scss',
               // '!sass/{6*,9*}.scss'
             ],
-            tasks: ['sass']
+            tasks: ['sass','autoprefixer']
           }
           // js: {
           //   files: [
@@ -110,7 +110,7 @@ module.exports = function(grunt) {
   // 加载Grunt插件
   grunt.loadNpmTasks('grunt-browser-sync');
   // grunt.loadNpmTasks('grunt-contrib-compass');
-  // grunt.loadNpmTasks('grunt-autoprefixer');
+  grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-sass');
   // grunt.loadNpmTasks('grunt-contrib-jshint');

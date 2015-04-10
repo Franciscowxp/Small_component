@@ -53,6 +53,21 @@ FileUpload.prototype = {
             return fileObj.identity !== identity;
         });
     },
+    funComputeSize: function(size) {
+        var result = size / 1024;
+        if (result < 1024) {
+            return Math.ceil(result) + 'K';
+        } else {
+            return Math.ceil(result / 1024) + "M";
+        }
+    },
+    funExistFileHandle: function(identity) {
+        var div = document.querySelector('.preview .file' + identity);
+        var strong = document.createElement('strong');
+        strong.innerHTML = "已存在";
+        strong.className = "exist";
+        div.appendChild(strong);
+    },
     funNotify: function(message) { //一个简单的通知组件
         var notice = document.createElement("div");
         notice.className = "upload notice";
@@ -190,6 +205,7 @@ FileUpload.prototype = {
         this.fileInput.addEventListener('change', function() {
             that.funDealFiles(this.files);
             that.onSelect();
+            this.value = null; //防止选择后删除文件，在选择相同文件无法选择bug
         }, false);
         this.dragDrop.addEventListener("drop", function(event) {
             event.preventDefault();
@@ -235,6 +251,14 @@ FileUpload.prototype = {
         var subprocess = document.createElement('p');
         var subbar = document.createElement('span');
         var remove = document.createElement('i');
+        var type = file.name.match(/.+\.(\w+)$/)[1];
+        var pContain = document.createElement('p');
+        var showType = document.createElement('span');
+        var showSize = document.createElement('span');
+        showType.innerHTML = 'Type:' + type;
+        showSize.innerHTML = 'Size:' + this.funComputeSize(file.size);
+        pContain.appendChild(showType);
+        pContain.appendChild(showSize);
         remove.className = "icon remove";
         div.className = "file" + fileObj.identity;
         subprocess.className = "processbar process1 tiny";
@@ -242,7 +266,7 @@ FileUpload.prototype = {
         div.appendChild(remove);
         div.appendChild(subprocess);
         name.innerHTML = file.name;
-
+        name.className = 'name';
         if (/image/.test(file.type)) {
             reader.readAsDataURL(file);
             reader.onload = function(event) {
@@ -256,6 +280,7 @@ FileUpload.prototype = {
             reader.readAsText(file);
             reader.onload = function(event) {
                 var span = document.createElement('span');
+                span.className = 'text';
                 span.innerHTML = this.result.slice(0, 170);
                 div.appendChild(span);
                 div.appendChild(name);
@@ -273,6 +298,7 @@ FileUpload.prototype = {
             resume.className = "icon play resume";
             div.appendChild(resume);
         }
+        div.appendChild(pContain);
     },
     funDeleteFile: function() { //删除文件
         var that = this;
@@ -343,7 +369,7 @@ FileUpload.prototype = {
             xhr.addEventListener('readystatechange', function(event) {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     if (xhr.responseText === 'exists') {
-                        that.funNotify("文件已存在");
+                        that.funExistFileHandle(identity);
                     } else {
                         uploadSlice(xhr.responseText);
                     }
@@ -377,6 +403,5 @@ FileUpload.prototype = {
             }
         }
         getFileInfo();
-
     }
 };
