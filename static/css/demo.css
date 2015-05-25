@@ -1402,7 +1402,11 @@ i.icon.weixin:before { content: "\f1d7"; }
 .moreInfoBar a.active { border-bottom: 1px solid white; margin-bottom: -1px; }
 .moreInfoBar a:hover { background: rgba(0, 0, 255, 0.5); color: white; }
 
-.moreInfoSec { margin-bottom: 10px; background: red; width: 100%; height: 500px; }
+.moreInfoSec { margin-bottom: 10px; background: red; width: 100%; height: 500px; font-size: 50px; }
+
+.backUp { width: 100%; height: 42px; display: none; }
+
+.backUp.active { display: block; }
 
 section { margin: 20px; text-align: center; }
 section header { background: #333333; color: #929999; -webkit-box-shadow: inset 0px 1px 5px #272727,0px 0px 5px 1px #161718; box-shadow: inset 0px 1px 5px #272727,0px 0px 5px 1px #161718; padding: 10px; border-radius: 5px; margin-bottom: 10px; }

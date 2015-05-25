@@ -9,11 +9,13 @@
                 jQuery(this).click(function(event) {
                     event.preventDefault();
                     var scrolltodom = jQuery(this).attr("data-scroll");
-                    jQuery(this).addClass("active").parent("li").siblings().find("a").removeClass("active");
-                    jQuery('html,body').animate({
-                        scrollTop: jQuery(scrolltodom).offset().top - offset
-                    }, config.speed);
-                    return false;
+                    if(jQuery(scrolltodom).length) {
+                        jQuery(this).addClass("active").parent("li").siblings().find("a").removeClass("active");
+                        jQuery('html,body').animate({
+                            scrollTop: jQuery(scrolltodom).offset().top - offset
+                        }, config.speed);
+                        return false;
+                    }
                 });
             })
         },
@@ -228,7 +230,7 @@ function scrollbyside(padding, bar, aside, content) {
     this.bar = jQuery(bar);
     this.aside = jQuery(aside);
     this.content = jQuery(content);
-    this.padding = padding;
+    this.backUp = this.content.find('.backUp');
     this.originHeight = this.bar.height();
     this.originAsideHeight = this.aside.height();
     this.bar.data('oldValue', 'static');
@@ -246,6 +248,7 @@ scrollbyside.prototype = {
             var barRect = that.bar.get(0).getBoundingClientRect();
             var contentRect = that.content.get(0).getBoundingClientRect();
             if (barRect.top <= 0) {
+                that.backUp.addClass('active');
                 that.bar.css({
                     position: 'fixed',
                     top: '0',
@@ -257,13 +260,13 @@ scrollbyside.prototype = {
                     zIndex: '3'
                 });
             }
-            if (contentRect.bottom <= that.originHeight + that.padding) {
+            if (contentRect.bottom <= that.originHeight) {
                 that.bar.css({
                     position: 'absolute',
-                    top: contentHeight - that.originHeight - that.padding
+                    top: contentHeight - that.originHeight
                 });
             }
-            if (contentRect.bottom >= that.originHeight + that.padding && contentRect.top <= 0) {
+            if (contentRect.bottom >= that.originHeight && contentRect.top <= 0) {
                 that.bar.css({
                     position: 'fixed',
                     top: '0',
@@ -278,10 +281,11 @@ scrollbyside.prototype = {
             if (contentRect.bottom <= that.originAsideHeight) {
                 that.aside.css({
                     position: 'absolute',
-                    top: contentHeight - that.originAsideHeight - that.padding
+                    top: contentHeight - that.originAsideHeight 
                 });
             }
-            if (contentRect.top >= that.originHeight + that.padding) {
+            if (contentRect.top >= 0 ) {
+                that.backUp.removeClass('active');
                 that.bar.css({
                     position: 'static'
                 });
@@ -306,10 +310,13 @@ scrollbyside.prototype = {
         };
     },
     barActive: function(aim, as, height) {
-        var rect = jQuery(aim).get(0).getBoundingClientRect();
-        if (height < rect.bottom && rect.top <= height) {
-            as.removeClass('active');
-            jQuery("a[data-scroll='" + aim + "']").addClass('active')
+        var dom  = jQuery(aim).get(0);
+        if (dom) {
+            var rect = dom.getBoundingClientRect();
+            if (height < rect.bottom && rect.top <= height) {
+                as.removeClass('active');
+                jQuery("a[data-scroll='" + aim + "']").addClass('active')
+            }
         }
     }
 }
