@@ -1,4 +1,4 @@
-@include keyframes(process1) {
+@keyframes process1 {
     0% {
         opacity: 0.3;
         width: 0;
@@ -10,7 +10,7 @@
 }
 
 
-@include keyframes(process2) {
+@keyframes process2 {
     from {
         background-position: 0px;
     }
@@ -31,8 +31,8 @@
         height: 100%;
         position: relative;
         border-radius: 5px;
-        @include transition;
-        @include boxsizing(border-box);
+        transition: all 0.2s ease-in-out;
+        box-sizing: border-box;
         display: block;
         line-height: 20px;
         text-align: right;
@@ -46,8 +46,8 @@
 
 .process2 {
     span {
-        @include linear(top left, #3399ff 25%, #99ccff 25%, #99ccff 50%, #3399ff 50%, #3399ff 75%, #99ccff 75%, #99ccff 100%);
-        @include animate(process2, 3s, linear, 2s, infinite);
+        background: linear-gradient(top left,#3399ff 25%, #99ccff 25%, #99ccff 50%, #3399ff 50%, #3399ff 75%, #99ccff 75%, #99ccff 100%);
+        animation: process2 3s linear 2s infinite;
         background-size: 60px 60px;
     }
 }
@@ -65,7 +65,7 @@
     span[style*='width: 100'] {
         background: #5bbd72;
         &:after { 
-            @include animate(none);
+            animation:none;
         }
     }
     @for $i from 1 through 9 {
@@ -87,7 +87,7 @@
             right: 0;
             bottom: 0;
             background: #fff;
-            @include animate(process1,2s,ease,0s, infinite);
+            animation:process1 2s ease 0s infinite
         }
     }
 }

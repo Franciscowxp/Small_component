@@ -6,6 +6,8 @@
         opacity: 1;
     }
 }
+
+
 .fileUpload {
     padding: 20px;
     header {
@@ -20,12 +22,12 @@
         box-sizing: border-box;
         height: 300px;
         border: 6px dashed #dcdcdc;
-        @include transition;
+        transition: all 0.2s ease-in-out;
         form {
             p {
                 color: #BABABA;
                 font-size: pxToRem(18px);
-                @include textshadow(2px 2px 2px #dcdcdc);
+                text-shadow: 2px 2px 2px #dcdcdc;
                 text-align: center;
                 &:first-of-type {
                     margin-top: 100px;
@@ -43,7 +45,7 @@
             button {
                 font-size: pxToRem(16px);
                 color: #878787;
-                @include textshadow(2px 2px 2px #dcdcdc);
+                text-shadow: 2px 2px 2px #dcdcdc;
                 padding: 5px;
                 border: 1px solid #dcdcdc;
                 border-radius: 5px;
@@ -60,7 +62,7 @@
         border: none;
         font-size: 0px;
         & > div {
-            @include inlineblock;
+            display: inline-block;
             margin: 5px;
             width: 200px;
             text-align: center;
@@ -82,7 +84,7 @@
                 font-size: pxToRem(14px);
                 color: $textcol;
                 width: 100%;
-                @include boxsizing(border-box);
+                box-sizing: border-box;
             }
             & > p {
                 position: absolute;
@@ -99,10 +101,9 @@
             .remove {
                 color: $blue;
                 cursor: pointer;
-                @include transition;
+                transition: all 0.2s ease-in-out;
                 &:before {
                     opacity: 0.1;
-                    @include transition;
                 }
             }
             .warning {
@@ -127,10 +128,9 @@
                 font-size: pxToRem(50px);
                 cursor: pointer;
                 transform: translate(0, -50%);
-                @include transition;
+                transition: all 0.2s ease-in-out;
                 &:before {
                     opacity: 0.3;
-                    @include transition;
                 }
             }
         }
@@ -142,12 +142,13 @@
         p:last-of-type {
             top: 200px;
             width: 100%;
-            height: 18px;
+            height: 20px;
             font-size: pxToRem(12px);
             color: $textcol;
             display: flex;
             flex-flow: row nowrap;
             justify-content: space-between;
+            background: white;
             span {
                 flex: auto 0 0;
             }
@@ -157,15 +158,15 @@
             background: white;
             top: 182px;
             left: 0px;
-            height: 18px;
+            height: 20px;
             overflow: hidden;
             border-top: 1px solid $teal;
-                    font-size: pxToRem(12px);
+            font-size: pxToRem(12px);
         }
     }
     .exist {
         font-size: pxToRem(12px);
-        background: rgba(255,0,0,0.5);
+        background: rgba(255, 0, 0, 0.5);
         color: white;
         padding: 5px;
         border-radius: 4px;
@@ -187,6 +188,6 @@
     left: 50%;
     height: 30px;
     margin-top: -30px;
-    @include boxsizing(border-box);
-    transform: translate(-50px, 0);
+    box-sizing: border-box;
+    transform: translate(-50%, 0);
 }

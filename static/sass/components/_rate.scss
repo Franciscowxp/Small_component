@@ -14,19 +14,18 @@
         font-size: pxToRem(14px);
     }
     .icon:before {
-        @include transition;
+        transition: all 0.2s ease-in-out;
         content: "\f006";
     }
     .icon {
         color: #999999;
-        // @include transition;
     }
     .icon.hover, .icon.active {
         opacity: 1;
         color: #FFB70A;
     }
     .icon.hover.active {
-        @include transition;
+        transition: all 0.2s ease-in-out;
         color: darken(#FFB70A, 5%);
     }
     .icon.active:before {
@@ -45,7 +44,7 @@
         color: red;
     }
     .icon.hover.active {
-        @include transition;
+        transition: all 0.2s ease-in-out;
         color: darken(red, 5%);
     }
 }

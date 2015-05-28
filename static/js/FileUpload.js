@@ -13,7 +13,7 @@ function FileUpload(opt) {
     this.resumeUpload = true; //是否启用断点上传
     this.xhrObject = {}; //用于断点续传的xhr对象
     this.url = ""; //ajax地址
-    this.fileType = ['exe', 'rar', 'png', 'jpg', 'gif', 'txt']; //上传文件类型
+    this.fileType = ['rar', 'png', 'jpg', 'gif', 'txt', 'exe']; //上传文件类型
     this.fileFilter = []; //过滤后的文件数组
     this.identity = 1; // 用于标记每个文件与子进度条的唯一识别，自增加的
     this.getOpt(opt); // 获得用户的配置选项
@@ -27,7 +27,7 @@ FileUpload.prototype = {
         this.funRegisteUpload();
         this.funDeleteFile();
         this.funPauseResume();
-
+        this.mainBar = document.querySelector(".fileUpload >.processbar");
     },
     getOpt: function(opt) {
         for (var i in opt) {
@@ -62,8 +62,8 @@ FileUpload.prototype = {
         }
     },
     funExistFileHandle: function(identity) {
-        var div = document.querySelector('.preview .file' + identity);
-        var strong = document.createElement('strong');
+        var div = document.querySelector('.preview .file' + identity),
+            strong = document.createElement('strong');
         strong.innerHTML = "已存在";
         strong.className = "exist";
         div.appendChild(strong);
@@ -73,8 +73,8 @@ FileUpload.prototype = {
         notice.className = "upload notice";
         notice.innerHTML = message;
         document.body.appendChild(notice);
-        var styles = document.defaultView.getComputedStyle(notice, null);
-        var an = null,
+        var styles = document.defaultView.getComputedStyle(notice, null),
+            an = null,
             offset = 2,
             base = parseFloat(styles.marginTop);
         notice.style.marginTop = styles.marginTop;
@@ -107,55 +107,70 @@ FileUpload.prototype = {
         this.previewBox.addEventListener('click', function(event) {
             var target = event.target;
             if (/resume/.test(target.className)) {
-                var identity = Number(target.parentNode.className.match(/\w+(\d+)/)[1]);
-                if (/play/.test(target.className)) {
+                var identity = Number(target.parentNode.className.match(/\w+(\d+)/)[1]),
+                    file = that.fileFilter.filter(function(file) {
+                        return file.identity === identity;
+                    });
+                if (/play/.test(target.className) && file[0]) {
                     if (that.xhrObject['file' + identity]) {
                         that.xhrObject['file' + identity].abort();
                         target.className = "icon pause resume";
                     }
                 } else {
-                    var file = that.fileFilter.filter(function(file) {
-                        return file.identity === identity;
-                    });
-                    that.funSliceUpload(file[0]);
-                    target.className = "icon play resume";
+                    if (file[0]) {
+                        that.funSliceUpload(file[0]);
+                        target.className = "icon play resume";
+                    }
                 }
             }
         }, false);
     },
     funChangeState: function(state, identity) { //每个子进度条的状态，上传成功或失败
-        var i = document.querySelector(".preview .file" + identity + " i:nth-child(1)");
-        var that = this;
-        if (state === "fail") {
+        var i = document.querySelector(".preview .file" + identity + " i:nth-child(1)"),
+            that = this;
+        if (state.status === "error") {
             that.onFailure();
             document.querySelector(".preview .file" + identity + " .processbar").classList.add("error");
             i.className = "warning icon";
+            this.mainBar.classList.add('error');
+            this.funNotify("文件上传失败 "+state.reason);
         }
-        if (state === "success") {
+        if (state.status === "success") {
             that.onSuccess();
             i.className = "checkmark icon";
+            this.funNotify("文件上传完成");
         }
     },
     funSubProgress: function(upload, identity) { //每个文件的子进度条
         var that = this;
         upload.addEventListener("progress", function(event) {
-            var prosize = Math.round(event.loaded * 100 / event.total);
+            var prosize = Math.round(event.loaded * 100 / event.total),
+                span = document.querySelector(".preview .file" + identity + " .processbar span");
             that.subProTotal['file' + identity] = event.total;
             that.subProSize['file' + identity] = event.loaded;
             that.funTotalProgress();
-            var span = document.querySelector(".preview .file" + identity + " .processbar span");
             span.style.width = prosize + "%";
+        }, false);
+        upload.addEventListener('error', function(event) { //传输过程中出现错误，而不是服务器处理数据时的错误
+            document.querySelector(".preview .file" + identity + " .processbar").classList.add('error');
+            that.mainBar.classList.add('error');
+            console.log('upload error');
         }, false);
     },
     funSubSliceProgress: function(upload, base, total, identity) { //每个断点续传文件的子进度条
         var that = this;
         upload.addEventListener("progress", function(event) {
-            var prosize = Math.round((base + event.loaded) * 100 / total);
+            var prosize = Math.round((base + event.loaded) * 100 / total),
+                span = document.querySelector(".preview .file" + identity + " .processbar span");
             that.subProTotal['file' + identity] = total;
             that.subProSize['file' + identity] = base + event.loaded;
             that.funTotalProgress();
-            var span = document.querySelector(".preview .file" + identity + " .processbar span");
             span.style.width = prosize + "%";
+        }, false);
+        upload.addEventListener('error', function(event) { //传输过程中出现错误，而不是服务器处理数据时的错误
+            document.querySelector(".preview .file" + identity + " .processbar").classList.add('error');
+            that.mainBar.classList.add('error');
+            console.log('upload error');
         }, false);
     },
     funTotalProgress: function() { //总进度条
@@ -167,14 +182,18 @@ FileUpload.prototype = {
         for (var j in this.subProSize) {
             loaded += this.subProSize[j];
         }
-        var prosize = Math.round(loaded * 100 / total);
-        var span = document.querySelector(".fileUpload >.processbar span");
+        var prosize = Math.round(loaded * 100 / total),
+            span = document.querySelector(".fileUpload >.processbar span");
         span.innerHTML = prosize + "%";
         span.style.width = prosize + "%";
         this.onProgress(prosize);
-        if (prosize === 100) { //当进度为100时，上传完成，并不一定是成功，是否成功由子进度决定
+        if (prosize === 100) { //当进度为100时，上传完成，并不一定是成功，只能说明是传输没有问题，服务器处理上传的文件算是另外的问题
             this.funNotify("文件上传完成");
         }
+        // } else {
+        //     this.funNotify("文件上传失败");
+        //     this.mainBar.classList.add('error');
+        // }
     },
     funDragHover: function() { //拖拽添加文件
         var that = this;
@@ -216,11 +235,11 @@ FileUpload.prototype = {
     funDealFiles: function(files) { //处理文件，比如类型选择，大小限制
         var that = this;
         [].forEach.call(files, function(file) {
-            var type = file.name.match(/.+\.(\w+)$/)[1];
-            var isAllowType = that.fileType.some(function(value) {
-                return value === type;
-            });
-            var islimiteSize = (file.size / 1024 / 1024) <= that.limitSize;
+            var type = file.name.match(/.+\.(\w+)$/)[1],
+                isAllowType = that.fileType.some(function(value) {
+                    return value === type;
+                }),
+                islimiteSize = (file.size / 1024 / 1024) <= that.limitSize;
 
             if (!isAllowType && islimiteSize) {
                 that.funNotify(file.name + '文件类型不允许');
@@ -243,18 +262,18 @@ FileUpload.prototype = {
         });
     },
     funPreviewFiles: function(fileObj) { //预览文件，支持图片和文本
-        var file = fileObj.file;
-        var that = this;
-        var reader = new FileReader();
-        var div = document.createElement('div');
-        var name = document.createElement('span');
-        var subprocess = document.createElement('p');
-        var subbar = document.createElement('span');
-        var remove = document.createElement('i');
-        var type = file.name.match(/.+\.(\w+)$/)[1];
-        var pContain = document.createElement('p');
-        var showType = document.createElement('span');
-        var showSize = document.createElement('span');
+        var file = fileObj.file,
+            that = this,
+            reader = new FileReader(),
+            div = document.createElement('div'),
+            name = document.createElement('span'),
+            subprocess = document.createElement('p'),
+            subbar = document.createElement('span'),
+            remove = document.createElement('i'),
+            type = file.name.match(/.+\.(\w+)$/)[1],
+            pContain = document.createElement('p'),
+            showType = document.createElement('span'),
+            showSize = document.createElement('span');
         showType.innerHTML = 'Type:' + type;
         showSize.innerHTML = 'Size:' + this.funComputeSize(file.size);
         pContain.appendChild(showType);
@@ -319,6 +338,7 @@ FileUpload.prototype = {
         this.upButton.addEventListener('click', function(event) {
             event.preventDefault();
             if (that.fileFilter.length) {
+                that.mainBar.classList.remove('error');
                 that.subProTotal = {};
                 that.subProSize = {};
                 that.fileFilter.forEach(function(fileObj) {
@@ -338,29 +358,30 @@ FileUpload.prototype = {
         }
     },
     funSingleUpload: function(fileObj) { //非断点文件上传
-        var that = this;
-        var file = fileObj.file;
-        var identity = fileObj.identity;
-        var xhr = new XMLHttpRequest();
+        var that = this,
+            file = fileObj.file,
+            identity = fileObj.identity,
+            xhr = new XMLHttpRequest(),
+            fileData = new FormData();
         xhr.open('POST', this.url, true);
         xhr.addEventListener('readystatechange', function(event) {
             if (xhr.readyState === 4) {
                 that.onComplete();
                 if (xhr.status === 200) {
-                    that.funChangeState(xhr.responseText, fileObj.identity);
+                    var responseJson = JSON.parse(xhr.responseText);
+                    that.funChangeState(responseJson, fileObj.identity);
                     that.funSuccessClean(identity);
                 }
             }
         }, false);
         that.funSubProgress(xhr.upload, identity);
-        var fileData = new FormData();
         fileData.append('file', file);
         xhr.send(fileData);
     },
     funSliceUpload: function(fileObj) { //断点文件的上传
-        var that = this;
-        var file = fileObj.file;
-        var identity = fileObj.identity;
+        var that = this,
+            file = fileObj.file,
+            identity = fileObj.identity;
 
         function getFileInfo() { //先从服务器获得文件的信息，再生成分片文件的大小
             var xhr = new XMLHttpRequest();
@@ -368,10 +389,11 @@ FileUpload.prototype = {
             xhr.open('GET', that.url + "?name=" + file.name + "&size=" + file.size, true);
             xhr.addEventListener('readystatechange', function(event) {
                 if (xhr.readyState === 4 && xhr.status === 200) {
-                    if (xhr.responseText === 'exists') {
+                    var responseJson = JSON.parse(xhr.responseText);
+                    if (responseJson.reason === 'exists') {
                         that.funExistFileHandle(identity);
                     } else {
-                        uploadSlice(xhr.responseText);
+                        uploadSlice(responseJson.size);
                     }
                 }
             }, false);
@@ -379,8 +401,8 @@ FileUpload.prototype = {
         }
 
         function uploadSlice(uploadedSize) { //上传分片的文件，根据之前返回的已存在服务器文件的大小，创建分片
-            var uploadedSize = Number(uploadedSize);
-            var newslice = file.slice(uploadedSize, uploadedSize + that.sliceSize * 1024 * 1024);
+            var uploadedSize = Number(uploadedSize),
+                newslice = file.slice(uploadedSize, uploadedSize + that.sliceSize * 1024 * 1024);
             if (newslice.size) {
                 var xhr = new XMLHttpRequest();
                 that.xhrObject['file' + identity] = xhr;
@@ -390,10 +412,11 @@ FileUpload.prototype = {
                 xhr.setRequestHeader("upload_totalsize", file.size);
                 xhr.addEventListener('readystatechange', function(event) {
                     if (xhr.readyState === 4 && xhr.status === 200) {
-                        if (xhr.responseText !== 'success') {
+                        var responseJson = JSON.parse(xhr.responseText);
+                        if (responseJson.status !== 'success') {
                             getFileInfo();
                         } else {
-                            that.funChangeState(xhr.responseText, identity);
+                            that.funChangeState(responseJson, identity);
                             that.funSuccessClean(identity);
                         }
                     }

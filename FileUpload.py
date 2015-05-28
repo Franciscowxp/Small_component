@@ -14,7 +14,7 @@ class FileUpload(object):
     """docstring for FileUpload"""
     ### args  upload_folder(type is string):the upload folder
     ###       allowed_extensions(type is list):the file has the extension is allowed to upload
-    def __init__(self,upload_folder,allowed_extensions={'gif', 'png', 'jpg', 'txt', 'jpeg', 'pdf','rar'}):
+    def __init__(self,upload_folder,allowed_extensions={'gif', 'png', 'jpg', 'txt', 'jpeg','rar'}):
         super(FileUpload, self).__init__()
         self.upload_folder = upload_folder
         self.allowed_extensions = allowed_extensions
@@ -36,7 +36,7 @@ class FileUpload(object):
                     f.write(rawfile)
                 f.close()
                 if filesize==os.path.getsize(file):
-                    return "success"
+                    return '{"status":"success"}'
                 else:
                     return str(len(rawfile))
             else:
@@ -50,21 +50,21 @@ class FileUpload(object):
                         path = os.path.join(upload, filename)
                         file.save(path)
                     else:
-                        return 'file type is forbidden'
-                    return "success"
+                        return '{"status":"error","reason":"file type is forbidden"}'
+                    return '{"status":"success"}'
                 except Exception as e:
-                    return "fail"
+                    return '{"status":"error","reason":"server gets an error"}'
 
         if request.method == "GET":
             size = int(request.args.get('size'))
             file = os.path.join(os.getcwd() + self.upload_folder,request.args.get('name'));
             if os.path.exists(file):
                 if os.path.getsize(file)==size:
-                    return "exists"
+                    return '{"status":"error","reason":"exists"}'
                 else:
-                    return str(os.path.getsize(file))
+                    return '{"size":"'+str(os.path.getsize(file))+'"}'
             else:
-                return '0'
+                return '{"size":"0"}'
 
 @app.route('/')
 def index():

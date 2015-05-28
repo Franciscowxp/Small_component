@@ -1337,48 +1337,49 @@ i.icon.\33d:before { content: "\f1b2"; }
 i.icon.weixin:before { content: "\f1d7"; }
 
 .circle { width: 300px; height: 300px; margin: auto; border-radius: 50%; position: relative; }
-.circle:after, .circle:before { content: ""; display: block; position: absolute; left: 0px; top: 0px; height: inherit; width: inherit; border-radius: 50%; -webkit-transition: all 0.3s ease-in-out 0s; transition: all 0.3s ease-in-out 0s; -webkit-box-shadow: inset 200px 0px 0px rgba(155, 80, 186, 0.1), inset 0px -200px 0px rgba(155, 80, 186, 0.1), inset -200px 0px 0px rgba(155, 80, 186, 0.1), inset 0px 200px 0px rgba(155, 80, 186, 0.1); box-shadow: inset 200px 0px 0px rgba(155, 80, 186, 0.1), inset 0px -200px 0px rgba(155, 80, 186, 0.1), inset -200px 0px 0px rgba(155, 80, 186, 0.1), inset 0px 200px 0px rgba(155, 80, 186, 0.1); }
+.circle:after, .circle:before { content: ""; display: block; position: absolute; left: 0px; top: 0px; height: inherit; width: inherit; border-radius: 50%; -webkit-transition: all 0.2s ease-in-out; transition: all 0.2s ease-in-out; -webkit-box-shadow: inset 200px 0px 0px rgba(155, 80, 186, 0.1), inset 0px -200px 0px rgba(155, 80, 186, 0.1), inset -200px 0px 0px rgba(155, 80, 186, 0.1), inset 0px 200px 0px rgba(155, 80, 186, 0.1); box-shadow: inset 200px 0px 0px rgba(155, 80, 186, 0.1), inset 0px -200px 0px rgba(155, 80, 186, 0.1), inset -200px 0px 0px rgba(155, 80, 186, 0.1), inset 0px 200px 0px rgba(155, 80, 186, 0.1); }
 .circle:before { -webkit-transform: rotate(45deg); -ms-transform: rotate(45deg); transform: rotate(45deg); }
 .circle:hover:before, .circle:hover:after { -webkit-box-shadow: inset 10px 0px 0px rgba(255, 0, 0, 0.5), inset 0px -10px 0px rgba(252, 150, 0, 0.5), inset -10px -10px 0px rgba(0, 255, 0, 0.5), inset 0px 10px 0px rgba(0, 150, 255, 0.5); box-shadow: inset 10px 0px 0px rgba(255, 0, 0, 0.5), inset 0px -10px 0px rgba(252, 150, 0, 0.5), inset -10px -10px 0px rgba(0, 255, 0, 0.5), inset 0px 10px 0px rgba(0, 150, 255, 0.5); }
 
-@keyframes heart { 0% { opacity: 0; }
-  50% { opacity: 1; top: -30px; -webkit-transform: rotateY(360deg); -ms-transform: rotateY(360deg); transform: rotateY(360deg); }
-  100% { opacity: 1; top: 5px; } }
 @-webkit-keyframes heart { 0% { opacity: 0; }
-  50% { opacity: 1; top: -30px; -webkit-transform: rotateY(360deg); -ms-transform: rotateY(360deg); transform: rotateY(360deg); }
+  50% { opacity: 1; top: -30px; -webkit-transform: rotateY(360deg); transform: rotateY(360deg); }
   100% { opacity: 1; top: 5px; } }
-.vote { text-align: center; display: inline-block; *display: inline; *zoom: 1; vertical-align: top; }
-.vote a { font-size: 14px; padding: 5px 5px 5px 30px; border: 1px solid #cfcfcf; display: inline-block; *display: inline; *zoom: 1; vertical-align: top; position: relative; -webkit-perspective: 800px; perspective: 800px; -webkit-transform-style: preserver-3d; transform-style: preserver-3d; }
+
+@keyframes heart { 0% { opacity: 0; }
+  50% { opacity: 1; top: -30px; -webkit-transform: rotateY(360deg); transform: rotateY(360deg); }
+  100% { opacity: 1; top: 5px; } }
+.vote { text-align: center; display: inline-block; }
+.vote a { font-size: 14px; padding: 5px 5px 5px 30px; border: 1px solid #cfcfcf; display: inline-block; position: relative; -webkit-perspective: 800px; perspective: 800px; -webkit-transform-style: preserver-3d; transform-style: preserver-3d; }
 .vote a:after { content: "\f08a"; }
 .vote a:after, .vote a:before { display: inline-block; opacity: 0.75; margin: 0em 0.25em 0em 0em; width: 1.23em; height: 1em; font-family: "Icons"; font-style: normal; line-height: 1; font-weight: normal; text-decoration: inherit; text-align: center; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; position: absolute; left: 5px; top: 10px; }
-.vote a.active:before { content: "\f004"; color: red; -webkit-transform: rotateY(30deg); -ms-transform: rotateY(30deg); transform: rotateY(30deg); -webkit-animation: heart 2s ease-in-out 0s 1 normal; -ms-animation: heart 2s ease-in-out 0s 1 normal; animation: heart 2s ease-in-out 0s 1 normal; -webkit-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s; }
-.vote a.active:after { opacity: 0; -webkit-transition: all 0.3s ease-in 2s; transition: all 0.3s ease-in 2s; }
-.vote span { background: white; display: inline-block; *display: inline; *zoom: 1; vertical-align: top; padding: 5px; color: #757d83; border: 1px solid #cfcfcf; position: relative; font-size: 14px; margin-left: 10px; }
+.vote a.active:before { content: "\f004"; color: red; -webkit-transform: rotateY(30deg); transform: rotateY(30deg); -webkit-animation: heart 2s ease-in-out; animation: heart 2s ease-in-out; -webkit-transition: all 0.2s ease-in-out; transition: all 0.2s ease-in-out; }
+.vote a.active:after { opacity: 0; -webkit-transition: all 0.2s ease-in-out 2s; transition: all 0.2s ease-in-out 2s; }
+.vote span { background: white; display: inline-block; padding: 5px; color: #757d83; border: 1px solid #cfcfcf; position: relative; font-size: 14px; margin-left: 10px; }
 .vote span:before, .vote span:after { content: ""; width: 0px; height: 0px; position: absolute; border-style: solid; border-width: 8px; border-top-color: transparent; border-bottom-color: transparent; border-left-color: transparent; top: 5px; }
 .vote span:before { border-right-color: white; left: -16px; z-index: 5; }
 .vote span:after { left: -17px; border-right-color: #cfcfcf; z-index: 4; }
 
-.vote1 { text-align: center; display: inline-block; *display: inline; *zoom: 1; vertical-align: top; }
-.vote1 a { font-size: 14px; width: 16px; height: 15px; position: relative; display: inline-block; *display: inline; *zoom: 1; vertical-align: top; }
-.vote1 a:after, .vote1 a:before { content: "\f004"; display: inline-block; opacity: 1; width: 1.23em; height: 1em; font-family: "Icons"; font-style: normal; line-height: 1; font-weight: normal; text-decoration: inherit; text-align: center; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; position: absolute; left: 0px; top: 0px; -webkit-transition: all 0.2s ease-in-out 0s; transition: all 0.2s ease-in-out 0s; }
+.vote1 { text-align: center; display: inline-block; }
+.vote1 a { font-size: 14px; width: 16px; height: 15px; position: relative; display: inline-block; }
+.vote1 a:after, .vote1 a:before { content: "\f004"; display: inline-block; opacity: 1; width: 1.23em; height: 1em; font-family: "Icons"; font-style: normal; line-height: 1; font-weight: normal; text-decoration: inherit; text-align: center; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; position: absolute; left: 0px; top: 0px; -webkit-transition: all 0.2s ease-in-out; transition: all 0.2s ease-in-out; }
 .vote1 a:before { color: red; }
-.vote1 a:hover:after { -webkit-transform: scale(0); -ms-transform: scale(0); transform: scale(0); opacity: 0; }
+.vote1 a:hover:after { -webkit-transform: scale(0, 0); -ms-transform: scale(0, 0); transform: scale(0, 0); opacity: 0; }
 
 .rate { cursor: pointer; }
 .rate i { margin-right: 0px; font-size: 1.33333rem; }
 .rate.big i { font-size: 1.66667rem; }
 .rate.large i { font-size: 2rem; }
 .rate.small i { font-size: 1.16667rem; }
-.rate .icon:before { -webkit-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s; content: "\f006"; }
+.rate .icon:before { -webkit-transition: all 0.2s ease-in-out; transition: all 0.2s ease-in-out; content: "\f006"; }
 .rate .icon { color: #999999; }
 .rate .icon.hover, .rate .icon.active { opacity: 1; color: #FFB70A; }
-.rate .icon.hover.active { -webkit-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s; color: #f0a900; }
+.rate .icon.hover.active { -webkit-transition: all 0.2s ease-in-out; transition: all 0.2s ease-in-out; color: #f0a900; }
 .rate .icon.active:before { content: '\f005'; }
 
 .rate.heart .icon.active:before { content: "\f004"; }
 .rate.heart .icon:before { content: "\f08a"; }
 .rate.heart .icon.hover, .rate.heart .icon.active { opacity: 1; color: red; }
-.rate.heart .icon.hover.active { -webkit-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s; color: #e60000; }
+.rate.heart .icon.hover.active { -webkit-transition: all 0.2s ease-in-out; transition: all 0.2s ease-in-out; color: #e60000; }
 
 .slider { position: relative; width: 670px; height: 250px; margin-bottom: 20px; overflow: hidden; margin: auto; }
 .slider img { position: absolute; }
