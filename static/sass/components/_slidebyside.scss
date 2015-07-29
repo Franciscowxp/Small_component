@@ -15,6 +15,8 @@
 	font-size: pxToRem(12px);
 	border:1px solid #dcdcdc;
 	border-radius: 4px;
+	height: 200px;
+	background: pink;
 	h4 {
 		font-size: pxToRem(14px);
 		color: #666;
@@ -30,7 +32,7 @@
 }
 .moreInfoBar {
 	background: white;
-	width: 740px;
+	width: 960px;
 	ul {
 		font-size: 0px;
 		border-bottom: 1px solid #dcdcdc;
@@ -65,6 +67,9 @@
 	width: 100%;
 	height: 500px;
 	font-size: 50px;
+	&:last-of-type{
+		margin-bottom:0px;
+	}
 }
 .backUp {
 	width: 100%;

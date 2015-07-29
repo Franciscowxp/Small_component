@@ -6,13 +6,13 @@
             };
             var offset = offset || 0;
             return this.each(function() {
-                jQuery(this).click(function(event) {
+                $(this).click(function(event) {
                     event.preventDefault();
-                    var scrolltodom = jQuery(this).attr("data-scroll");
-                    if(jQuery(scrolltodom).length) {
-                        jQuery(this).addClass("active").parent("li").siblings().find("a").removeClass("active");
-                        jQuery('html,body').animate({
-                            scrollTop: jQuery(scrolltodom).offset().top - offset
+                    var scrolltodom = $(this).attr("data-scroll");
+                    if ($(scrolltodom).length) {
+                        $(this).addClass("active").parent("li").siblings().find("a").removeClass("active");
+                        $('html,body').animate({
+                            scrollTop: $(scrolltodom).offset().top - offset
                         }, config.speed);
                         return false;
                     }
@@ -58,12 +58,12 @@
                 getScore: function(score) {}
             };
             settings = $.extend(settings, options);
-            var icons = $(this).find('.icon');
+            var icons = $(this).find('i');
             var score = 0;
             return this.each(function(index, el) {
                 var that = this;
                 $(this).mouseover(function(event) {
-                    if ($(event.target).hasClass('icon')) {
+                    if (/i/i.test(event.target.tagName)) {
                         var index = $(event.target).index();
                         icons.slice(0, index + 1).addClass('hover');
                     }
@@ -72,7 +72,7 @@
                     icons.removeClass('hover');
                 });
                 $(this).click(function(event) {
-                    if ($(event.target).hasClass('icon')) {
+                    if (/i/i.test(event.target.tagName)) {
                         var index = $(event.target).index();
                         score = index + 1;
                         settings.getScore(score);
@@ -165,12 +165,12 @@ SlideImg.prototype = {
             derection;
         this.points.eq(0).addClass('active');
         this.points.click(function(event) {
-            if (jQuery(this).hasClass('active')) {
+            if ($(this).hasClass('active')) {
                 return false;
             };
             window.clearInterval(that.playhaddle);
             event.preventDefault();
-            var index = jQuery(event.target).index();
+            var index = $(event.target).index();
             if (index > that.lastItem) {
                 derection = 'right';
             } else {
@@ -226,11 +226,11 @@ SlideImg.prototype = {
     }
 }
 
-function scrollbyside(padding, bar, aside, content) {
-    this.bar = jQuery(bar);
-    this.aside = jQuery(aside);
-    this.content = jQuery(content);
-    this.backUp = this.content.find('.backUp');
+function scrollbyside(bar, aside, content) {
+    this.bar = $(bar);
+    this.aside = $(aside);
+    this.content = $(content);
+    this.backUp = this.bar.prev('.backUp');
     this.originHeight = this.bar.height();
     this.originAsideHeight = this.aside.height();
     this.bar.data('oldValue', 'static');
@@ -238,53 +238,54 @@ function scrollbyside(padding, bar, aside, content) {
 }
 scrollbyside.prototype = {
     init: function() {
-        this.bar.find('a').scrollTop();
+        this.bar.find('a').scrollTo();
         this.bind();
     },
     bind: function() {
         var that = this;
-        jQuery(window).scroll(function() {
+        $(window).scroll(function() {
             var contentHeight = that.content.height();
             var barRect = that.bar.get(0).getBoundingClientRect();
             var contentRect = that.content.get(0).getBoundingClientRect();
             if (barRect.top <= 0) {
+                $("#sticky").removeClass('active');
                 that.backUp.addClass('active');
                 that.bar.css({
                     position: 'fixed',
                     top: '0',
-                    zIndex: '3'
+                    zIndex: '4'
                 });
                 that.aside.css({
                     position: 'fixed',
-                    top: '0',
+                    top: that.originHeight,
                     zIndex: '3'
                 });
             }
             if (contentRect.bottom <= that.originHeight) {
                 that.bar.css({
                     position: 'absolute',
-                    top: contentHeight - that.originHeight
+                    top: contentHeight
                 });
             }
             if (contentRect.bottom >= that.originHeight && contentRect.top <= 0) {
                 that.bar.css({
                     position: 'fixed',
                     top: '0',
-                    zIndex: '3'
+                    zIndex: '4'
                 });
                 that.aside.css({
                     position: 'fixed',
-                    top: '0',
+                    top: that.originHeight,
                     zIndex: '3'
                 });
             }
-            if (contentRect.bottom <= that.originAsideHeight) {
+            if (contentRect.bottom <= that.originAsideHeight + that.originHeight) {
                 that.aside.css({
                     position: 'absolute',
-                    top: contentHeight - that.originAsideHeight 
+                    top: contentHeight - that.originAsideHeight + that.originHeight
                 });
             }
-            if (contentRect.top >= 0 ) {
+            if (contentRect.top >= that.originHeight) {
                 that.backUp.removeClass('active');
                 that.bar.css({
                     position: 'static'
@@ -310,13 +311,212 @@ scrollbyside.prototype = {
         };
     },
     barActive: function(aim, as, height) {
-        var dom  = jQuery(aim).get(0);
+        var dom = $(aim).get(0);
         if (dom) {
             var rect = dom.getBoundingClientRect();
             if (height < rect.bottom && rect.top <= height) {
                 as.removeClass('active');
-                jQuery("a[data-scroll='" + aim + "']").addClass('active')
+                $("a[data-scroll='" + aim + "']").addClass('active')
             }
         }
+    }
+}
+
+function whichAnimationEvent() {
+    var t,
+        el = document.createElement("fakeelement");
+
+    var animations = {
+        "animation": "animationend",
+        "OAnimation": "oAnimationEnd",
+        "MozAnimation": "animationend",
+        "WebkitAnimation": "webkitAnimationEnd"
+    }
+
+    for (t in animations) {
+        if (el.style[t] !== undefined) {
+            return animations[t];
+        }
+    }
+}
+
+function whichTransitionEvent() {
+    var t,
+        el = document.createElement("fakeelement");
+
+    var transitions = {
+        "transition": "transitionend",
+        "OTransition": "oTransitionEnd",
+        "MozTransition": "transitionend",
+        "WebkitTransition": "webkitTransitionEnd"
+    }
+
+    for (t in transitions) {
+        if (el.style[t] !== undefined) {
+            return transitions[t];
+        }
+    }
+}
+
+function whichAnimationEventStart() {
+    var t,
+        el = document.createElement("fakeelement");
+
+    var animations = {
+        "animation": "animationstart",
+        "OAnimation": "oAnimationStart",
+        "MozAnimation": "animationstart",
+        "WebkitAnimation": "webkitAnimationStart"
+    }
+
+    for (t in animations) {
+        if (el.style[t] !== undefined) {
+            return animations[t];
+        }
+    }
+}
+
+function getFinalStyle(dom, property) {
+    return (dom.currentStyle ? dom.currentStyle : window.getComputedStyle(dom, null))[property];
+}
+
+function getActualRect(dom) {
+    var nodes = [dom],
+        backUp = [],
+        actual;
+
+    function parents(dom) {
+        var parent = dom.parentNode;
+        if (getFinalStyle(parent, 'display') == 'none') {
+            nodes.push(parent);
+        } else {
+            return false;
+        }
+        parents(parent);
+    }
+    parents(dom);
+    style = "display:block!important;visibility:hidden!important;";
+    inlineStyle = "display:inline-block!important;visibility:hidden!important;";
+    nodes.forEach(function(el, index, array) {
+        var cssText = el.style.cssText
+        backUp.push(cssText);
+        el.style.cssText = cssText + style;
+    });
+    for (var i = 0; i < nodes.length; i++) {
+        var cssText = nodes[i].style.cssText;
+        backUp.push(cssText);
+        if (i == 0) {
+            nodes[i].style.cssText = cssText + inlineStyle;
+        } else {
+            nodes[i].style.cssText = cssText + style;
+        }
+    };
+    actual = {
+        'width': dom.clientWidth,
+        'height': dom.clientHeight
+    };
+    for (var i = 0; i < nodes.length; i++) {
+        nodes[i].style.cssText = backUp[i]
+    };
+    return actual
+}
+
+function PopUp(options) {
+    /*
+        handler, dimmer, onClose,width,height
+    */
+    this.dimmer = jQuery(options.dimmer);
+    this.handler = jQuery(options.handler);
+    this.contain = this.dimmer.find('.popUp');
+    this.inner = this.dimmer.find('.popInner');
+    this.afterClose = options.afterClose ? options.afterClose : function() {};
+    this.afterShow = options.afterShow ? options.afterShow : function() {};
+    this.init(options);
+}
+PopUp.prototype = {
+    init: function(options) {
+        var actualW, actualH;
+        var actual = getActualRect(this.inner.get(0));
+        if (options.width) {
+            actualW = options.width;
+        } else {
+            actualW = actual.width;
+        }
+        if (options.height) {
+            actualH = options.height;
+        } else {
+            actualH = actual.height;
+        }
+        this.contain.css({
+            height: actualH,
+            width: actualW
+        });
+        this.contain.css({
+            opacity: 0,
+            display: 'inline-block'
+        });
+        this.closeBtn();
+        this.bind();
+    },
+    setActualRect: function() {
+        var actual = getActualRect(this.inner.get(0));
+        this.contain.css({
+            height: actual.height,
+            width: actual.width
+        });
+    },
+    bind: function() {
+        var that = this;
+        this.handler.click(function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            that.showUp();
+        });
+        this.close.click(function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            that.hideDown();
+        });
+        this.dimmer.click(function(event) {
+            if (event.target == that.dimmer.get(0)) {
+                that.hideDown();
+            }
+        });
+    },
+    showUp: function() {
+        var that = this;
+        this.dimmer.fadeIn('fast', function() {
+            that.contain.addClass('active');
+            var animatEvent = whichAnimationEvent();
+            that.contain.bind(animatEvent, function(event) {
+                that.contain.css({
+                    opacity: 1,
+                    display: 'block'
+                });
+                that.afterShow();
+                that.contain.off();
+            });
+
+        });
+    },
+    hideDown: function() {
+        var that = this;
+        var animatEvent = whichAnimationEvent();
+        this.contain.removeClass('active').addClass('noactive');
+        this.contain.bind(animatEvent, function(event) {
+            that.contain.css({
+                opacity: 0,
+                display: 'block'
+            });
+            that.contain.removeClass('noactive');
+            that.dimmer.fadeOut('fast');
+            that.afterClose();
+            that.contain.off();
+        });
+
+    },
+    closeBtn: function() {
+        this.close = jQuery("<i class='fa fa-times-circle'></i>");
+        this.close.appendTo(this.contain);
     }
 }

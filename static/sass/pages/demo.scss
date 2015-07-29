@@ -2,23 +2,34 @@
 @import "../help/_helper";
 @import "../components/_font";
 @import "../components/_icon";
+@import "../components/_buttons";
 @import "../components/_circle";
 @import "../components/_vote";
 @import "../components/_rate";
+@import "../components/_popup";
 @import "../components/_slideimg";
 @import "../components/_slidebyside";
 
 section {
     margin: 20px;
     text-align: center;
+    position: relative;
+    box-sizing: border-box;
     header {
         background: #333333;
         color: #929999;
-        box-shadow: inset 0px 1px 5px #272727,0px 0px 5px 1px #161718;
         padding: 10px;
-        border-radius: 5px;
+        box-sizing: border-box;
+        border-radius: 2px;
         margin-bottom: 10px;
     }
 }
+.cb {
+    height: 300px;
+}
 
+.tl {
+    width: calc(100% - 40px);
+    height: calc(100vh - 40px);
 
+}

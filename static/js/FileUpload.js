@@ -188,7 +188,7 @@ FileUpload.prototype = {
         span.style.width = prosize + "%";
         this.onProgress(prosize);
         if (prosize === 100) { //当进度为100时，上传完成，并不一定是成功，只能说明是传输没有问题，服务器处理上传的文件算是另外的问题
-            this.funNotify("文件上传完成");
+            // this.funNotify("文件上传完成");
         }
         // } else {
         //     this.funNotify("文件上传失败");

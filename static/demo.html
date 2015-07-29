@@ -4,8 +4,10 @@
         <link rel="stylesheet" href=""/>
         <script src='./js/jquery-2.1.1.min.js'></script>
         <script src='./js/component.js'></script>
+        <script src='./js/canvasBg.js'></script>
         <script src='./js/demo.js'></script>
         <link rel="stylesheet" type="text/css" href="./css/demo.css"></head>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <body>
             
             <section>
@@ -19,44 +21,45 @@
                     <h1>slidebyside style demo</h1>
                 </header>
                     <div class="moreInfo">
+                        <div class="backUp"></div>
+                        <div class="moreInfoBar">
+                            <ul>
+                                <li><a href="" data-scroll="#description" title="" class="active">Description</a></li>
+                                <li><a href="" data-scroll="#product" title="">Product Discussion</a></li>
+                                <li><a href="" data-scroll="#shipping" title="">Shipping & Payment</a></li>
+                                <li><a href="" data-scroll="#wholesale" title="">Wholesale Inquiry</a></li>
+                            </ul>
+                        </div>
                         <div class="moreInfoCon">
-                            <div class="backUp"></div>
-                            <div class="moreInfoBar">
-                                <ul>
-                                    <li><a href="" data-scroll="#description" title="" class="active">Description</a></li>
-                                    <li><a href="" data-scroll="#product" title="">Product Discussion</a></li>
-                                    <li><a href="" data-scroll="#shipping" title="">Shipping & Payment</a></li>
-                                    <li><a href="" data-scroll="#wholesale" title="">Wholesale Inquiry</a></li>
-                                </ul>
+                            <div class="moreInfoSec" id="description">
+                                asdfsdfsdsdf
+                                sadfas
+                                sadf
+                                asdf
+                                asdf
+                                asdfas
+                                dfas
+                                df
+                                sadf
+                                sadf
+                                sadf
+                                asd
+                                fasd
+                                f
+                                asdf
+                                asdf
+                                sad
+                                f
                             </div>
-                        <div class="moreInfoSec" id="description">
-                            asdfsdfsdsdf
-                            sadfas
-                            sadf
-                            asdf
-                            asdf
-                            asdfas
-                            dfas
-                            df
-                            sadf
-                            sadf
-                            sadf
-                            asd
-                            fasd
-                            f
-                            asdf
-                            asdf
-                            sad
-                            f
-                        </div>
-                        <div class="moreInfoSec" id="product">
-                            
-                        </div>
+                            <div class="moreInfoSec" id="product">
+                            </div>
+                            <div class="moreInfoSec" id="shipping">
+                            </div>
                         </div>
                         <div class="moreInfoAside">
-                        <div class="moreAsideSec">
-                            <h4>Customer Also Bought</h4>
-                        </div>
+                            <div class="moreAsideSec">
+                                <h4>Customer Also Bought</h4>
+                            </div>
                         </div>
                     </div>
             </section>
@@ -77,11 +80,11 @@
                     <h1>rate style demo</h1>
                 </header>
                 <p class="rate  large">
-                    <i class="icon"></i>
-                    <i class="icon"></i>
-                    <i class="icon"></i>
-                    <i class="icon"></i>
-                    <i class="icon"></i>
+                    <i class=""></i>
+                    <i class=""></i>
+                    <i class=""></i>
+                    <i class=""></i>
+                    <i class=""></i>
                 </p>
             </section>
             <section>
@@ -100,6 +103,25 @@
                         <li></li>
                     </ul>
                 </div>
+            </section>
+            <section class="cb">
+                <header><h1>canvas background</h1></header>
+                <canvas></canvas>
+            </section>
+            <section>
+                <header><h1>popup</h1></header>
+                <button class="btn popupbtn">popUp</button>
+                <div class="popDimmer">
+                    <div class="popUp">
+                        <div class="popInner">
+                            <p>this is a test ha. obtrusive</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="tl">
+                <header><h1>TimeLine</h1></header>
+
             </section>
         </body>
     </html>
