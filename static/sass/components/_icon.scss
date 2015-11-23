@@ -1,6 +1,40 @@
 .icon {
-  display: inline-block;
-  width: 2.5rem;
-  height: 2.5rem;
-  fill: currentColor;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-image: url(sprite.svg);
+}
+.icon.remove {
+    width: 24px;
+    height: 24px;
+    background-position: 0 0;
+}
+.icon.checkmark {
+    width: 24px;
+    height: 24px;
+    background-position: -40px 0;
+}
+.icon-image {
+    width: 24px;
+    height: 24px;
+    background-position: -80px 0;
+}
+.icon.warning {
+    width: 24px;
+    height: 24px;
+    background-position: -120px 0;
+}
+.icon.pause {
+    width: 24px;
+    height: 24px;
+    background-position: -160px 0;
+}
+.icon.play {
+    width: 24px;
+    height: 24px;
+    background-position: -200px 0;
+}
+.icon.file {
+    width: 24px;
+    height: 24px;
+    background-position: -240px 0;
 }

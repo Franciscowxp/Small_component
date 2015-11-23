@@ -16,7 +16,21 @@ body { background: white; }
 @font-face { font-family: 'lobster_twoitalic'; src: url(../fonts/lobster_two_italic-webfont.eot); src: url(../fonts/lobster_two_italic-webfont.eot?#iefix) format("embedded-opentype"), url(../fonts/lobster_two_italic-webfont.svg#lobster_twoitalic) format("svg"), url(../fonts/lobster_two_italic-webfont.woff2) format("woff2"), url(../fonts/lobster_two_italic-webfont.woff) format("woff"), url(../fonts/lobster_two_italic-webfont.ttf) format("truetype"); font-style: normal; font-weight: normal; font-variant: normal; text-decoration: inherit; text-transform: none; }
 @font-face { font-family: 'mf_yuehei'; font-style: normal; font-weight: normal; font-variant: normal; text-decoration: inherit; text-transform: none; }
 @font-face { font-family: 'Quantico'; font-style: normal; font-weight: 400; src: local("Quantico"), local("Quantico-Regular"), url(../fonts/Quantico.woff) format("woff"); }
-.icon { display: inline-block; width: 2.5rem; height: 2.5rem; fill: currentColor; }
+.icon { display: inline-block; background-repeat: no-repeat; background-image: url(sprite.svg); }
+
+.icon.remove { width: 24px; height: 24px; background-position: 0 0; }
+
+.icon.checkmark { width: 24px; height: 24px; background-position: -40px 0; }
+
+.icon-image { width: 24px; height: 24px; background-position: -80px 0; }
+
+.icon.warning { width: 24px; height: 24px; background-position: -120px 0; }
+
+.icon.pause { width: 24px; height: 24px; background-position: -160px 0; }
+
+.icon.play { width: 24px; height: 24px; background-position: -200px 0; }
+
+.icon.file { width: 24px; height: 24px; background-position: -240px 0; }
 
 .btn { background: #66b4ff; border-radius: 2px; color: white; box-sizing: border-box; display: inline-block; margin-top: 10px; font-size: 1.16667rem; padding: 5px; text-shadow: 1px 1px 1px rgba(220, 220, 220, 0.2); cursor: pointer; border: none; -webkit-transition: all 0.2s ease-in-out; transition: all 0.2s ease-in-out; }
 .btn:hover { background: #4da8ff; }
@@ -146,9 +160,6 @@ section header { background: #333333; color: #929999; padding: 10px; box-sizing:
 .cb { height: 300px; }
 
 .tl { width: calc(100% - 40px); height: calc(100vh - 40px); }
-
-.calendar { font-size: 0px; text-align: left; }
-.calendar div { font-size: 15px; display: inline-block; width: 15em; height: 15em; line-height: 15em; vertical-align: top; text-align: center; box-sizing: border-box; border-bottom: 2px solid teal; cursor: pointer; }
 
 
 

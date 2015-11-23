@@ -2,11 +2,6 @@ var gulp = require('gulp'),
     sass = require('gulp-ruby-sass'),
     sourcemaps = require('gulp-sourcemaps'),
     browserSync = require('browser-sync').create(),
-    // sftp = require('gulp-sftp'),
-    // concat = require('gulp-concat'),
-    // minifyCss = require('gulp-minify-css'),
-    // gulpFilter = require('gulp-filter'),
-    // amdOptimize = require("amd-optimize"),
     autoprefixer = require('gulp-autoprefixer');
 gulp.task('sass', function() {
     // var filter = gulpFilter('!./sass/pages');
@@ -60,9 +55,5 @@ gulp.task('server', ['sass'], function() {
     gulp.watch('./sass/pages/*.scss', ['sass']);
     gulp.watch("./*.html").on('change', browserSync.reload);
 });
-
-gulp.task('watch',['concat'],function(){
-    gulp.watch('./sass/pages/*.scss', ['concat']);
-})
 
 gulp.task('default', ['server']);

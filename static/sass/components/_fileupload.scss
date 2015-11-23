@@ -70,7 +70,7 @@
             position: relative;
             height: 220px;
             animation: show 0.5s ease-in-out both;
-            .file {
+            .fa-file {
                 font-size: pxToRem(70px);
                 width: 100%;
                 height: 180px;
@@ -98,22 +98,22 @@
                 font-size: pxToRem(18px);
                 margin: 0px;
             }
-            .remove {
+            .fa-remove {
                 color: $blue;
                 cursor: pointer;
-                transition: all 0.2s ease-in-out;
                 &:before {
+                    transition: all 0.2s ease-in-out;
                     opacity: 0.1;
                 }
             }
-            .warning {
+            .fa-warning {
                 color: $red;
             }
-            .checkmark {
+            .fa-check {
                 color: #5bbd72;
             }
             &:hover {
-                i.remove:before, i.resume:before {
+                i.fa-remove:before, i.resume:before {
                     opacity: 0.8;
                 }
             }
@@ -128,8 +128,8 @@
                 font-size: pxToRem(50px);
                 cursor: pointer;
                 transform: translate(0, -50%);
-                transition: all 0.2s ease-in-out;
                 &:before {
+                    transition: all 0.2s ease-in-out;
                     opacity: 0.3;
                 }
             }

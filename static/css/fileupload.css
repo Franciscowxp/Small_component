@@ -197,8 +197,6 @@ body { background: white; }
 
 .stroke-black { stroke: #111; }
 
-.icon { display: inline-block; width: 2.5rem; height: 2.5rem; fill: currentColor; }
-
 .btn { background: #66b4ff; border-radius: 2px; color: white; box-sizing: border-box; display: inline-block; margin-top: 10px; font-size: 1.16667rem; padding: 5px; text-shadow: 1px 1px 1px rgba(220, 220, 220, 0.2); cursor: pointer; border: none; -webkit-transition: all 0.2s ease-in-out; transition: all 0.2s ease-in-out; }
 .btn:hover { background: #4da8ff; }
 
@@ -230,9 +228,9 @@ body { background: white; }
 .processbar span { width: 0%; height: 100%; position: relative; border-radius: 5px; -webkit-transition: all 0.2s ease-in-out; transition: all 0.2s ease-in-out; box-sizing: border-box; display: block; line-height: 20px; text-align: right; color: white; font-size: 1rem; }
 .processbar span[style*='width'] { padding-right: 10px; }
 
-.process2 span { background: -webkit-linear-gradient(top left, #3399ff 25%, #99ccff 25%, #99ccff 50%, #3399ff 50%, #3399ff 75%, #99ccff 75%, #99ccff 100%); background: linear-gradient(top left, #3399ff 25%, #99ccff 25%, #99ccff 50%, #3399ff 50%, #3399ff 75%, #99ccff 75%, #99ccff 100%); -webkit-animation: process2 3s linear 2s infinite; animation: process2 3s linear 2s infinite; background-size: 60px 60px; }
+.process2 span { background: -webkit-linear-gradient(#3399ff 25%, #99ccff 25%, #99ccff 50%, #3399ff 50%, #3399ff 75%, #99ccff 75%, #99ccff 100%); background: linear-gradient(#3399ff 25%, #99ccff 25%, #99ccff 50%, #3399ff 50%, #3399ff 75%, #99ccff 75%, #99ccff 100%); -webkit-animation: process2 3s linear 2s infinite; animation: process2 3s linear 2s infinite; background-size: 60px 60px; }
 
-.process1 span[style*='width: 3'], .process1 span[style*='width: 4'] { background: #66b2ff; }
+.process1 span[style*='width: 3'], .process1 span[style*='width: 4'] { background: #66b3ff; }
 .process1 span[style*='width: 5'], .process1 span[style*='width: 6'], .process1 span[style*='width: 7'] { background: #4da6ff; }
 .process1 span[style*='width: 8'], .process1 span[style*='width: 9'] { background: #66da81; }
 .process1 span[style*='width: 100'] { background: #5bbd72; }
@@ -272,17 +270,17 @@ body { background: white; }
 .fileUpload .dragDrop.active { border-color: #c3c3c3; }
 .fileUpload .preview { border: none; font-size: 0px; }
 .fileUpload .preview > div { display: inline-block; margin: 5px; width: 200px; text-align: center; overflow: hidden; position: relative; height: 220px; -webkit-animation: show 0.5s ease-in-out both; animation: show 0.5s ease-in-out both; }
-.fileUpload .preview > div .file { font-size: 5.83333rem; width: 100%; height: 180px; text-align: center; line-height: 180px; }
+.fileUpload .preview > div .fa-file { font-size: 5.83333rem; width: 100%; height: 180px; text-align: center; line-height: 180px; }
 .fileUpload .preview > div > span { text-align: center; display: inline-block; vertical-align: middle; font-size: 1.16667rem; color: #3d4450; width: 100%; box-sizing: border-box; }
 .fileUpload .preview > div > p { position: absolute; top: 0px; margin: 0px; }
 .fileUpload .preview > div i:nth-child(1) { position: absolute; right: 0px; top: 5px; font-size: 1.5rem; margin: 0px; }
-.fileUpload .preview > div .remove { color: #0074D9; cursor: pointer; -webkit-transition: all 0.2s ease-in-out; transition: all 0.2s ease-in-out; }
-.fileUpload .preview > div .remove:before { opacity: 0.1; }
-.fileUpload .preview > div .warning { color: #FF4136; }
-.fileUpload .preview > div .checkmark { color: #5bbd72; }
-.fileUpload .preview > div:hover i.remove:before, .fileUpload .preview > div:hover i.resume:before { opacity: 0.8; }
-.fileUpload .preview > div .resume { position: absolute; left: 50%; top: 50%; color: #0074D9; width: 4.16667rem; height: 4.16667rem; margin: -2.08333rem 0 0 -2.08333rem; font-size: 4.16667rem; cursor: pointer; -webkit-transform: translate(0, -50%); -ms-transform: translate(0, -50%); transform: translate(0, -50%); -webkit-transition: all 0.2s ease-in-out; transition: all 0.2s ease-in-out; }
-.fileUpload .preview > div .resume:before { opacity: 0.3; }
+.fileUpload .preview > div .fa-remove { color: #0074D9; cursor: pointer; }
+.fileUpload .preview > div .fa-remove:before { -webkit-transition: all 0.2s ease-in-out; transition: all 0.2s ease-in-out; opacity: 0.1; }
+.fileUpload .preview > div .fa-warning { color: #FF4136; }
+.fileUpload .preview > div .fa-check { color: #5bbd72; }
+.fileUpload .preview > div:hover i.fa-remove:before, .fileUpload .preview > div:hover i.resume:before { opacity: 0.8; }
+.fileUpload .preview > div .resume { position: absolute; left: 50%; top: 50%; color: #0074D9; width: 4.16667rem; height: 4.16667rem; margin: -2.08333rem 0 0 -2.08333rem; font-size: 4.16667rem; cursor: pointer; -webkit-transform: translate(0, -50%); -ms-transform: translate(0, -50%); transform: translate(0, -50%); }
+.fileUpload .preview > div .resume:before { -webkit-transition: all 0.2s ease-in-out; transition: all 0.2s ease-in-out; opacity: 0.3; }
 .fileUpload .preview img { max-width: 200px; display: inline-block; vertical-align: middle; }
 .fileUpload .preview p:last-of-type { top: 200px; width: 100%; height: 20px; font-size: 1rem; color: #3d4450; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-flex-flow: row nowrap; -ms-flex-flow: row nowrap; flex-flow: row nowrap; -webkit-box-pack: justify; -webkit-justify-content: space-between; -ms-flex-pack: justify; justify-content: space-between; background: white; }
 .fileUpload .preview p:last-of-type span { -webkit-box-flex: 1; -webkit-flex: auto 0 0; -ms-flex: auto 0 0; flex: auto 0 0; }

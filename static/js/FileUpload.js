@@ -13,7 +13,7 @@ function FileUpload(opt) {
     this.resumeUpload = true; //是否启用断点上传
     this.xhrObject = {}; //用于断点续传的xhr对象
     this.url = ""; //ajax地址
-    this.fileType = ['rar', 'png', 'jpg', 'gif', 'txt', 'exe']; //上传文件类型
+    this.fileType = ['rar', 'png', 'jpg', 'gif', 'txt', 'exe', 'mp4']; //上传文件类型
     this.fileFilter = []; //过滤后的文件数组
     this.identity = 1; // 用于标记每个文件与子进度条的唯一识别，自增加的
     this.getOpt(opt); // 获得用户的配置选项
@@ -35,6 +35,13 @@ FileUpload.prototype = {
                 this[i] = opt[i];
             }
         }
+    },
+    getUniqueName: function(str) {
+        var newName = '';
+        for (var i in str) {
+            newName += i.codePointAt(0);
+        }
+        return newName;
     },
     customFilter: function(file) { //选择文件组的过滤方法
         return file;
@@ -67,6 +74,7 @@ FileUpload.prototype = {
         strong.innerHTML = "已存在";
         strong.className = "exist";
         div.appendChild(strong);
+        this.funSuccessClean(identity);
     },
     funNotify: function(message) { //一个简单的通知组件
         var notice = document.createElement("div");
@@ -114,12 +122,12 @@ FileUpload.prototype = {
                 if (/play/.test(target.className) && file[0]) {
                     if (that.xhrObject['file' + identity]) {
                         that.xhrObject['file' + identity].abort();
-                        target.className = "icon pause resume";
+                        target.className = "fa fa-pause resume";
                     }
                 } else {
                     if (file[0]) {
                         that.funSliceUpload(file[0]);
-                        target.className = "icon play resume";
+                        target.className = "fa fa-play resume";
                     }
                 }
             }
@@ -131,13 +139,13 @@ FileUpload.prototype = {
         if (state.status === "error") {
             that.onFailure();
             document.querySelector(".preview .file" + identity + " .processbar").classList.add("error");
-            i.className = "warning icon";
+            i.className = "fa-warning fa";
             this.mainBar.classList.add('error');
-            this.funNotify("文件上传失败 "+state.reason);
+            this.funNotify("文件上传失败 " + state.reason);
         }
         if (state.status === "success") {
             that.onSuccess();
-            i.className = "checkmark icon";
+            i.className = "fa-check fa";
             this.funNotify("文件上传完成");
         }
     },
@@ -236,11 +244,12 @@ FileUpload.prototype = {
         var that = this;
         [].forEach.call(files, function(file) {
             var type = file.name.match(/.+\.(\w+)$/)[1],
+                name = file.name.match(/(.+)\./)[1],
                 isAllowType = that.fileType.some(function(value) {
                     return value === type;
                 }),
                 islimiteSize = (file.size / 1024 / 1024) <= that.limitSize;
-
+            file.uniqueName = that.getUniqueName(name) + '.' + type;
             if (!isAllowType && islimiteSize) {
                 that.funNotify(file.name + '文件类型不允许');
             }
@@ -278,7 +287,7 @@ FileUpload.prototype = {
         showSize.innerHTML = 'Size:' + this.funComputeSize(file.size);
         pContain.appendChild(showType);
         pContain.appendChild(showSize);
-        remove.className = "icon remove";
+        remove.className = "fa fa-remove";
         div.className = "file" + fileObj.identity;
         subprocess.className = "processbar process1 tiny";
         subprocess.appendChild(subbar);
@@ -307,14 +316,14 @@ FileUpload.prototype = {
             };
         } else {
             var i = document.createElement('i');
-            i.className = "icon file";
+            i.className = "fa fa-file";
             div.appendChild(i);
             div.appendChild(name);
             that.previewBox.appendChild(div);
         }
         if (this.resumeUpload && file.size > (this.sliceSize * 1024 * 1024)) {
             var resume = document.createElement('i');
-            resume.className = "icon play resume";
+            resume.className = "fa fa-play resume";
             div.appendChild(resume);
         }
         div.appendChild(pContain);
@@ -386,7 +395,7 @@ FileUpload.prototype = {
         function getFileInfo() { //先从服务器获得文件的信息，再生成分片文件的大小
             var xhr = new XMLHttpRequest();
             that.xhrObject['file' + identity] = xhr;
-            xhr.open('GET', that.url + "?name=" + file.name + "&size=" + file.size, true);
+            xhr.open('GET', that.url + "?name=" + file.uniqueName + "&size=" + file.size, true);
             xhr.addEventListener('readystatechange', function(event) {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var responseJson = JSON.parse(xhr.responseText);
@@ -408,7 +417,7 @@ FileUpload.prototype = {
                 that.xhrObject['file' + identity] = xhr;
                 xhr.open('POST', that.url, true);
                 xhr.setRequestHeader("upload_resume", 'True');
-                xhr.setRequestHeader("upload_name", encodeURI(file.name));
+                xhr.setRequestHeader("upload_name", encodeURI(file.uniqueName));
                 xhr.setRequestHeader("upload_totalsize", file.size);
                 xhr.addEventListener('readystatechange', function(event) {
                     if (xhr.readyState === 4 && xhr.status === 200) {
