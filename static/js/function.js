@@ -1,22 +1,34 @@
-function getActualRect(dom) {
-    var parent = dom.parentNode,
-        nodes = [dom, parent],
-        backUp = [],
-        actual;
-    style = "display:block!important;visibility:hidden!important;";
-    nodes.forEach(function(el, index, array) {
-        var cssText = el.style.cssText
-        backUp.push(cssText);
-        el.style.cssText = cssText + style;
-    });
-    actual = {
-        'width': dom.clientWidth,
-        'height': dom.clientHeight
-    };
-    nodes.forEach(function(el, index, array) {
-        el.style.cssText = backUp[index];
-    });
-    return actual
+/*
+* param dom it is the target dom you want to get its size
+* param until it is the most out dom wrap the target dom 
+*/
+function getActualRect(dom,until) {
+        var current = dom,
+            nodes = [dom],
+            backUp = [],
+            actual;
+
+        while (current.parentNode) {
+            nodes.push(current.parentNode);
+            current = current.parentNode;
+            if (current === until) {
+              break;
+            }
+        }
+        style = "display:block!important;visibility:hidden!important;";
+        nodes.forEach(function(el, index, array) {
+            var cssText = el.style.cssText
+            backUp.push(cssText);
+            el.style.cssText = cssText + style;
+        });
+        actual = {
+            'width': dom.clientWidth,
+            'height': dom.clientHeight
+        };
+        nodes.forEach(function(el, index, array) {
+            el.style.cssText = backUp[index];
+        });
+        return actual
 }
 
 function getType(o) {
